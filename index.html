@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyBooker - Modern Airline Booking System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Modern Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" onclick="showSection('home')">
+                <i class="fas fa-plane-departure"></i>
+                SkyBooker
+            </a>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link" onclick="showSection('home')">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="#search" class="nav-link" onclick="showSection('search')">
+                    <i class="fas fa-search"></i> Search Flights
+                </a>
+                <a href="#bookings" class="nav-link" id="bookings-link" style="display: none;" onclick="showSection('bookings')">
+                    <i class="fas fa-ticket-alt"></i> My Bookings
+                </a>
+                <a href="#" class="nav-link" id="login-link" onclick="showSection('auth')">
+                    <i class="fas fa-user"></i> Login
+                </a>
+                <a href="#" class="nav-link" id="logout-link" style="display: none;" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" style="margin-top: 80px;">
+        <!-- Enhanced Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>✈️ Find Your Perfect Flight</h1>
+                    <p>Discover amazing destinations and book flights worldwide with our modern booking platform</p>
+                    <button class="search-button" onclick="showSection('search')" style="margin-top: 1rem; background: white; color: var(--primary-color); font-weight: 700; padding: 1rem 2rem; border-radius: 50px; border: none; cursor: pointer;">
+                        <i class="fas fa-search"></i>
+                        Start Your Journey
+                    </button>
+                </div>
+            </div>
+
+            <!-- Enhanced Search Form -->
+            <div class="search-container">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-color); font-weight: 700;">Quick Flight Search</h2>
+                <form class="search-form" onsubmit="searchFlights(event)">
+                    <div class="form-group">
+                        <label for="quickOrigin">
+                            <i class="fas fa-plane-departure" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                            From
+                        </label>
+                        <input type="text" id="quickOrigin" name="origin" placeholder="Enter departure city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quickDestination">
+                            <i class="fas fa-plane-arrival" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                            To
+                        </label>
+                        <input type="text" id="quickDestination" name="destination" placeholder="Enter destination city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quickDepartureDate">
+                            <i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                            Departure Date
+                        </label>
+                        <input type="date" id="quickDepartureDate" name="departureDate" required>
+                    </div>
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                        Search Flights
+                    </button>
+                </form>
+            </div>
+
+            <!-- Features Section -->
+            <div style="max-width: 1200px; margin: 4rem auto; padding: 0 2rem;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div style="background: white; padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow); text-align: center;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                            <i class="fas fa-clock" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="margin-bottom: 1rem; color: var(--text-color);">24/7 Support</h3>
+                        <p style="color: #6b7280;">Round-the-clock customer service for all your travel needs</p>
+                    </div>
+                    <div style="background: white; padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow); text-align: center;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                            <i class="fas fa-shield-alt" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="margin-bottom: 1rem; color: var(--text-color);">Secure Booking</h3>
+                        <p style="color: #6b7280;">Your personal and payment information is always protected</p>
+                    </div>
+                    <div style="background: white; padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow); text-align: center;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                            <i class="fas fa-tags" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="margin-bottom: 1rem; color: var(--text-color);">Best Prices</h3>
+                        <p style="color: #6b7280;">Compare prices from multiple airlines to find the best deals</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authentication Section -->
+        <section id="auth" class="section">
+            <div class="auth-container" style="max-width: 500px; margin: 2rem auto; background: white; padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                <div class="auth-tabs" style="display: flex; margin-bottom: 2rem; border-bottom: 1px solid #e5e7eb;">
+                    <button class="tab-button active" onclick="showAuthTab('login')" style="flex: 1; padding: 1rem; border: none; background: none; cursor: pointer; font-size: 1rem; color: var(--primary-color); border-bottom: 2px solid var(--primary-color);">Login</button>
+                    <button class="tab-button" onclick="showAuthTab('register')" style="flex: 1; padding: 1rem; border: none; background: none; cursor: pointer; font-size: 1rem; color: #666; border-bottom: 2px solid transparent;">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="login-form" class="auth-form active" style="display: block;">
+                    <h2 style="margin-bottom: 1.5rem; color: var(--text-color); text-align: center;">Login to Your Account</h2>
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="search-button" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div id="register-form" class="auth-form" style="display: none;">
+                    <h2 style="margin-bottom: 1.5rem; color: var(--text-color); text-align: center;">Create New Account</h2>
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="register-name">Full Name</label>
+                            <input type="text" id="register-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Email</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required minlength="6">
+                        </div>
+                        <button type="submit" class="search-button" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-user-plus"></i>
+                            Register
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Search Section -->
+        <section id="search" class="section">
+            <div class="search-container">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-color); font-weight: 700;">
+                    <i class="fas fa-search" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                    Search Flights
+                </h2>
+                <form class="search-form" onsubmit="searchFlights(event)">
+                    <div class="form-group">
+                        <label for="origin">
+                            <i class="fas fa-plane-departure" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                            From
+                        </label>
+                        <input type="text" id="origin" placeholder="Enter departure city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">
+                            <i class="fas fa-plane-arrival" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                            To
+                        </label>
+                        <input type="text" id="destination" placeholder="Enter destination city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departure-date">
+                            <i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                            Departure Date
+                        </label>
+                        <input type="date" id="departure-date" required>
+                    </div>
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                        Search Flights
+                    </button>
+                </form>
+
+                <!-- Search Results -->
+                <div id="search-results" class="search-results" style="max-width: 1200px; margin: 2rem auto 0; padding: 0 2rem;"></div>
+            </div>
+        </section>
+
+        <!-- Enhanced Bookings Section -->
+        <section id="bookings" class="section">
+            <div class="bookings-container" style="max-width: 1200px; margin: 0 auto; background: white; padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-color); font-weight: 700;">
+                    <i class="fas fa-ticket-alt" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                    My Bookings
+                </h2>
+                <div id="bookings-list" class="bookings-list"></div>
+            </div>
+        </section>
+
+        <!-- Booking Form Modal -->
+        <div id="booking-modal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);">
+            <div class="modal-content" style="background-color: white; margin: 5% auto; padding: 2rem; border-radius: var(--border-radius); width: 90%; max-width: 600px; box-shadow: var(--box-shadow); position: relative;">
+                <span class="close" onclick="closeBookingModal()" style="position: absolute; right: 1rem; top: 1rem; font-size: 2rem; cursor: pointer; color: #666;">&times;</span>
+                <h2 style="margin-bottom: 1.5rem; color: var(--text-color);">Book Flight</h2>
+                <form id="booking-form" onsubmit="handleBooking(event)">
+                    <div id="flight-details"></div>
+                    <div class="passengers-section">
+                        <h3 style="margin: 2rem 0 1rem 0; color: var(--text-color);">Passenger Details</h3>
+                        <div id="passengers-container">
+                            <div class="passenger-form" style="border: 1px solid #e5e7eb; padding: 1rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
+                                <div class="form-group">
+                                    <label>Passenger Name</label>
+                                    <input type="text" name="passenger-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Age</label>
+                                    <input type="number" name="passenger-age" min="1" max="120" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Seat Number</label>
+                                    <input type="text" name="seat-number" placeholder="e.g., 1A" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addPassenger()" class="search-button" style="background: #28a745; margin-bottom: 1rem;">
+                            <i class="fas fa-plus"></i>
+                            Add Passenger
+                        </button>
+                    </div>
+                    <div class="booking-summary" style="border-top: 1px solid #e5e7eb; padding-top: 1rem; margin-top: 1rem;">
+                        <div class="total-amount" style="text-align: center; margin-bottom: 1rem; font-size: 1.2rem;">
+                            <strong>Total Amount: $<span id="total-amount">0</span></strong>
+                        </div>
+                        <button type="submit" class="search-button" style="width: 100%;">
+                            <i class="fas fa-credit-card"></i>
+                            Book Flight
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
